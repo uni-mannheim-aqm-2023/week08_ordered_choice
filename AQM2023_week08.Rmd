@@ -9,12 +9,12 @@ output:
     toc: true
     toc_float: true
     css: css/lab.css
+  pdf_document:
+    toc: yes
   html_notebook:
     toc: true
     toc_float: true
     css: css/lab.css
-  pdf_document:
-    toc: yes
 header-includes:
    - \usepackage[default]{sourcesanspro}
    - \usepackage[T1]{fontenc}
