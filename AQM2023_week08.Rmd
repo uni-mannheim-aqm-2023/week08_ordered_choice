@@ -177,7 +177,7 @@ axis(1,
 
 ```
 
-Now, we, the researches, observe some factors that contribute to the respondents utility $U$ (or at least we have some theory about how those factors could influence the utility), for example ideology, party affiliation, or income.
+Now, we, the researchers, observe some factors that contribute to the respondents utility $U$ (or at least we have some theory about how those factors could influence the utility), for example ideology, party affiliation, or income.
 
 Parameterizing this (assuming linearity) gives us the familiar systematic component of the statistical model:
 
@@ -415,7 +415,7 @@ Where $F(\cdot)$ is the CDF of the error distribution (i.e. the CDF of a logisti
 
 
 
-Once the distribution of errors is specified and we have an independent variable $X$ that would predict $U$, we can compute the probabilities of observing $U$ given $X$. The line represents $E(U_i) = X_i\beta$ on values of $X_i$, and the probabilities of approval rankings correspond to areas of error distribution between the thresholds $\tau_j$s.
+Once the distribution of errors is specified and we have an independent variable $X$ that would predict $U$, we can compute the probabilities of observing $U$ given $X$. The line represents $E(U_i) = X_i\beta$ on values of $X_i$, and the probabilities of approval rankings correspond to areas of error distribution between the thresholds $\tau_j$.
 
 ![Distribution of U given X](images/ol.png)
 
@@ -563,7 +563,7 @@ axis(2,
 Two Problems:
 
 -   We would have to assume equal distances between the approval rating answers.
--   No approval rating below 1 and above 4 (similar to binary variables that only take values 0 and 1)
+-   No approval rating below 1 and above 4 (similar to binary variables that only take values 0 and 1).
 
 ## Translating the log-likelihood to R
 
@@ -806,13 +806,17 @@ tau <- res$par[5:7]
 
 for (i in 1:length(ideology_seq)) {
   # calculate probabilities
+  
+  # Lowest Category
   probs[, 1, i] <- exp(tau[1] - U[, i]) / (1 + exp(tau[1] - U[, i]))
   
+  # Middle Categories
   for (j in 2:(ncol(Z) - 1)) {
     probs[, j, i] <- exp(tau[j] - U[, i]) / (1 + exp(tau[j] - U[, i])) -
       exp(tau[j - 1] - U[, i]) / (1 + exp(tau[j - 1] - U[, i]))
   }
   
+  # Highest Category
   probs[, ncol(Z), i] <-
     1 - exp(tau[J - 1] - U[, i]) / (1 + exp(tau[J - 1] - U[, i]))
 }
