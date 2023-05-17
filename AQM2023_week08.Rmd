@@ -1051,7 +1051,7 @@ for (i in 1:length(ideology_seq)) {
   for (j in 2:(ncat - 1)) {
     probs[j, , i] <-
       apply(exp(tau[, j] - U[, , i]) / (1 + exp(tau[, j] - U[, , i])) -
-        exp(tau[j - 1] - U[, , i]) / (1 + exp(tau[j - 1] - U[, , i])), 2, mean)
+        exp(tau[,j - 1] - U[, , i]) / (1 + exp(tau[,j - 1] - U[, , i])), 2, mean)
   }
 
   probs[ncat, , i] <-
